@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.*;
+
 @SpringBootApplication
 public class TspSpringApplication {
 
@@ -15,21 +18,15 @@ public class TspSpringApplication {
 	@RestController
 	public class MyController {
 
-		@GetMapping("/my-api") // Define the endpoint URL
-		public String myApi() {
+		@GetMapping("/two-opt") // Define the endpoint URL
+		public List<Integer> myApi() {
 			// Call your method to get the output data
-			AnotherClass anotherClass = new AnotherClass();
-			String outputData = anotherClass.someMethod();
+			List<Integer> outputData = TSP.tsp();
 
 			// Return the output data as the response
 			return outputData;
 		}
+
 	}
 
-	public class AnotherClass {
-		public String someMethod() {
-			// Your method implementation here
-			return "Hello from AnotherClass!";
-		}
-	}
 }
