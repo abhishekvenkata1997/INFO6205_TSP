@@ -48,7 +48,7 @@ public class TSP {
         totalDistance = TourDistance.tourDistance(christofidesList, graphInfo.getGraph());
         System.out.println("\nTotal distance w Christofides: " + totalDistance);
 
-        int[] newTour = TwoOpt.twoOpt(christofidesSolution, graphInfo, graphInfo.getGraph());
+        int[] newTour = TwoOpt.twoOpt(christofidesSolution, graphInfo.getGraph());
         List<Integer> twoOptNewList = new ArrayList<>();
 
         for (int i = 0; i < newTour.length; i++) {

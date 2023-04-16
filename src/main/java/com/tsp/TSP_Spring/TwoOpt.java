@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TwoOpt {
 
-    public static int[] twoOpt(int[] tour, GraphInfo graphInfo, int[][] distanceMatrix) {
+    public static int[] twoOpt(int[] tour, int[][] distanceMatrix) {
         int n = tour.length;
         int[] newTour = Arrays.copyOf(tour, n);
         boolean improved = true;
