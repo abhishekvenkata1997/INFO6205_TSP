@@ -13,7 +13,7 @@ public class ReadCoOrdinates {
     private static List<double[]> coordinates = new ArrayList<>();
 
     // read input from csv file
-    static int[][] readGraphFromFile(String filename) {
+    static double[][] readGraphFromFile(String filename) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -33,62 +33,20 @@ public class ReadCoOrdinates {
         }
 
         int n = coordinates.size();
-        int[][] graph = new int[n][n];
+        double[][] graph = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 double[] coord1 = coordinates.get(i);
                 double[] coord2 = coordinates.get(j);
-                int distance = (int) Math.round(
-                        (Math.sqrt(Math.pow(coord1[0] - coord2[0], 2) + Math.pow(coord1[1] - coord2[1], 2)) * 10000));
+                double distance = distance(coord1[1], coord1[0], coord2[1], coord2[0]);
                 graph[i][j] = distance;
                 graph[j][i] = distance;
             }
         }
+        coordinates.forEach((double[] arr) -> {
+            System.out.println("{ lat: " + arr[1] + ", lng: " + arr[0] + " },");
+        });
         return graph;
-    }
-
-    static GraphInfo readGraphInfoFromFile(String filename) {
-        List<double[]> coordinates = new ArrayList<>();
-        Map<Integer, double[]> coordinatesMap = new HashMap<>(); // New map to store coordinates
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            boolean skipHeader = true;
-            int i = 1;
-            while ((line = br.readLine()) != null) {
-                if (skipHeader) {
-                    skipHeader = false;
-                    continue;
-                }
-                String[] values = line.split(",");
-                int vertex = i++; // Assuming the vertex index is in the first column
-                double longitude = Double.parseDouble(values[1].trim());
-                double latitude = Double.parseDouble(values[2].trim());
-                double[] coord = new double[] { longitude, latitude };
-                coordinates.add(coord);
-                coordinatesMap.put(vertex, coord); // Add mapping between vertex and coordinates
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int n = coordinates.size();
-        int[][] graph = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                double[] coord1 = coordinates.get(i);
-                double[] coord2 = coordinates.get(j);
-                // int distance = (int) Math.round(
-                // (Math.sqrt(Math.pow(coord1[0] - coord2[0], 2) + Math.pow(coord1[1] -
-                // coord2[1], 2)) * 10000));
-                int distance = (int) distance(coord1[1], coord1[0], coord2[1], coord2[0]);
-
-                graph[i][j] = distance;
-                graph[j][i] = distance;
-            }
-        }
-        return new GraphInfo(graph, coordinatesMap, n); // Return GraphInfo object with graph, coordinates, and number
-                                                        // of vertices
     }
 
     public static double distance(double lat1, double lon1, double lat2, double lon2) {
@@ -101,4 +59,5 @@ public class ReadCoOrdinates {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
     }
+
 }

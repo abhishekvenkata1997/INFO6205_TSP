@@ -1,12 +1,10 @@
 package com.tsp.TSP_Spring;
 
 import java.util.List;
-import java.util.Arrays;
-import java.util.*;
 
 public class TourDistance {
-    public static int calculateTourDistance(int[][] graph, int[] solution) {
-        int totalDistance = 0;
+    public static double calculateTourDistance(double[][] graph, int[] solution) {
+        double totalDistance = 0.0;
         for (int i = 0; i < solution.length - 1; i++) {
             int currentVertex = solution[i];
             int nextVertex = solution[i + 1];
@@ -17,7 +15,7 @@ public class TourDistance {
         return totalDistance;
     }
 
-    static double tourDistance(List<Integer> tour, int[][] distances) {
+    static double tourDistance(List<Integer> tour, double[][] distances) {
         double distance = 0;
         for (int i = 0; i < tour.size() - 1; i++) {
             distance += distances[tour.get(i)][tour.get(i + 1)];
@@ -38,17 +36,14 @@ public class TourDistance {
             double[] coord2 = graphInfo.getCoordinates().get(tour.get(i + 1));
             coordinates[i] = coord1;
             if (coord1 != null && coord2 != null) {
-                distance = distance + getDistance(coord1, coord2);
-                System.out.print(distance + " ");
+                distance = distance + getCoordDistance(coord1, coord2);
             }
             // System.out.print(Arrays.toString(coord1) + " " + Arrays.toString(coord2) + "
             // " + distance + " ");
         }
         double[] coord1 = graphInfo.getCoordinates().get(tour.get(tour.size() - 1));
         double[] coord2 = graphInfo.getCoordinates().get(tour.get(1));
-        distance = distance + getDistance(coord1, coord2);
-        System.out.print(distance + " ");
-        System.out.println();
+        distance = distance + getCoordDistance(coord1, coord2);
         return distance;
     }
 
@@ -61,6 +56,16 @@ public class TourDistance {
             coordinates[i] = coord;
         }
         return coordinates;
+    }
+
+    static double getCoordDistance(double[] cord1, double[] cord2) {
+        // Calculate the difference in x and y coordinates
+        double diffX = cord1[0] - cord2[0];
+        double diffY = cord1[1] - cord2[1];
+
+        // Calculate the Euclidean distance between the two coordinates
+        double distance = Math.sqrt(diffX * diffX + diffY * diffY);
+        return distance;
     }
 
     public static final double RADIUS_OF_EARTH = 6371; // Earth's radius in kilometers

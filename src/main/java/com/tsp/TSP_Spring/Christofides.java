@@ -5,18 +5,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Christofides {
-    public static int[] applyChristofidesAlgorithm(int[][] graph, int[] initialSolution) {
+    public static int[] applyChristofidesAlgorithm(double[][] graph, int[] initialSolution) {
         // Find the minimum spanning tree
-        int[][] minimumSpanningTree = findMinimumSpanningTree(graph);
+        double[][] minimumSpanningTree = findMinimumSpanningTree(graph);
 
         // Identify odd-degree vertices in the minimum spanning tree
         List<Integer> oddDegreeVertices = identifyOddDegreeVertices(minimumSpanningTree);
 
         // Find a perfect matching for odd-degree vertices
-        int[][] perfectMatching = findPerfectMatching(graph, oddDegreeVertices);
+        double[][] perfectMatching = findPerfectMatching(graph, oddDegreeVertices);
 
         // Combine the minimum spanning tree and the perfect matching
-        int[][] combinedGraph = combineMinimumSpanningTreeAndPerfectMatching(minimumSpanningTree, perfectMatching);
+        double[][] combinedGraph = combineMinimumSpanningTreeAndPerfectMatching(minimumSpanningTree, perfectMatching);
 
         // Improve the initial solution using the combined graph
         int[] improvedSolution = improveSolutionWithCombinedGraph(combinedGraph, initialSolution);
@@ -24,9 +24,9 @@ public class Christofides {
         return improvedSolution;
     }
 
-    public static int[][] findMinimumSpanningTree(int[][] graph) {
+    public static double[][] findMinimumSpanningTree(double[][] graph) {
         int numVertices = graph.length;
-        int[][] minimumSpanningTree = new int[numVertices][numVertices];
+        double[][] minimumSpanningTree = new double[numVertices][numVertices];
 
         // Initialize the minimum spanning tree with all zeros
         for (int i = 0; i < numVertices; i++) {
@@ -43,7 +43,7 @@ public class Christofides {
 
         // Perform Prim's algorithm
         for (int count = 0; count < numVertices - 1; count++) {
-            int minWeight = Integer.MAX_VALUE;
+            double minWeight = Double.MAX_VALUE;
             int u = -1;
             int v = -1;
 
@@ -71,7 +71,7 @@ public class Christofides {
         return minimumSpanningTree;
     }
 
-    public static List<Integer> identifyOddDegreeVertices(int[][] minimumSpanningTree) {
+    public static List<Integer> identifyOddDegreeVertices(double[][] minimumSpanningTree) {
         List<Integer> oddDegreeVertices = new ArrayList<>();
         int numVertices = minimumSpanningTree.length;
 
@@ -89,9 +89,9 @@ public class Christofides {
         return oddDegreeVertices;
     }
 
-    public static int[][] findPerfectMatching(int[][] graph, List<Integer> oddDegreeVertices) {
+    public static double[][] findPerfectMatching(double[][] graph, List<Integer> oddDegreeVertices) {
         int numVertices = graph.length;
-        int[][] perfectMatching = new int[numVertices][numVertices]; // Initialize perfect matching as all zeros
+        double[][] perfectMatching = new double[numVertices][numVertices]; // Initialize perfect matching as all zeros
 
         // Logic to find a perfect matching, such as using a greedy approach,
         // Edmonds' blossom algorithm, or other matching algorithms
@@ -113,7 +113,7 @@ public class Christofides {
 
     // Helper function to get the degree of a vertex in a graph represented as an
     // adjacency matrix
-    private static int getDegree(int[][] graph, int vertex) {
+    private static int getDegree(double[][] graph, int vertex) {
         int degree = 0;
         for (int i = 0; i < graph.length; i++) {
             degree += graph[vertex][i];
@@ -121,10 +121,10 @@ public class Christofides {
         return degree;
     }
 
-    public static int[][] combineMinimumSpanningTreeAndPerfectMatching(int[][] minimumSpanningTree,
-            int[][] perfectMatching) {
+    public static double[][] combineMinimumSpanningTreeAndPerfectMatching(double[][] minimumSpanningTree,
+            double[][] perfectMatching) {
         int numVertices = minimumSpanningTree.length;
-        int[][] combinedGraph = new int[numVertices][numVertices]; // Initialize combined graph as all zeros
+        double[][] combinedGraph = new double[numVertices][numVertices]; // Initialize combined graph as all zeros
 
         // Logic to combine the minimum spanning tree and perfect matching
         // by adding the edges from the perfect matching to the minimum spanning tree
@@ -151,7 +151,7 @@ public class Christofides {
         return combinedGraph;
     }
 
-    public static int[] improveSolutionWithCombinedGraph(int[][] combinedGraph, int[] initialSolution) {
+    public static int[] improveSolutionWithCombinedGraph(double[][] combinedGraph, int[] initialSolution) {
         // Logic to improve the initial solution using the combined graph
         // You can implement a 2-opt or other local search algorithm here
 

@@ -1,7 +1,8 @@
 package com.tsp.TSP_Spring;
 
 public class InitialTour {
-    public static int[] buildInitialSolution(int[][] graph) {
+
+    public static int[] buildInitialSolution(double[][] graph) {
         int numNodes = graph.length; // Number of nodes in the graph
         int[] tour = new int[numNodes]; // Array to store the tour
         boolean[] visited = new boolean[numNodes]; // Array to keep track of visited nodes
