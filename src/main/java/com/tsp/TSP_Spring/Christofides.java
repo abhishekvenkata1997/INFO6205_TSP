@@ -3,6 +3,7 @@ package com.tsp.TSP_Spring;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.*;
 
 public class Christofides {
     public static int[] applyChristofidesAlgorithm(double[][] graph, int[] initialSolution) {
@@ -91,7 +92,8 @@ public class Christofides {
 
     public static double[][] findPerfectMatching(double[][] graph, List<Integer> oddDegreeVertices) {
         int numVertices = graph.length;
-        double[][] perfectMatching = new double[numVertices][numVertices]; // Initialize perfect matching as all zeros
+        double[][] perfectMatching = new double[numVertices][numVertices]; //
+        // Initialize perfect matching as all zeros
 
         // Logic to find a perfect matching, such as using a greedy approach,
         // Edmonds' blossom algorithm, or other matching algorithms
@@ -126,12 +128,6 @@ public class Christofides {
         int numVertices = minimumSpanningTree.length;
         double[][] combinedGraph = new double[numVertices][numVertices]; // Initialize combined graph as all zeros
 
-        // Logic to combine the minimum spanning tree and perfect matching
-        // by adding the edges from the perfect matching to the minimum spanning tree
-        // Here, we simply add the edges from the perfect matching to the minimum
-        // spanning tree
-        // to create the combined graph
-
         // Copy the edges from the minimum spanning tree to the combined graph
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
@@ -159,10 +155,6 @@ public class Christofides {
 
         // Perform 2-opt or other local search algorithm on the improved solution
 
-        // Placeholder logic for illustration purposes:
-        // Here, we simply reverse the order of the vertices in the first half of the
-        // initial solution
-        // to create a new improved solution
         int numVertices = combinedGraph.length;
         int startIndex = 0;
         int endIndex = numVertices / 2;

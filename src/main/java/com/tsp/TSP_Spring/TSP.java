@@ -57,6 +57,7 @@ public class TSP {
             for (int i = 0; i < newTour.length; i++) {
                 twoOptNewList.add(newTour[i]);
             }
+            System.out.print("2-opt distance=" + TourDistance.tourDistance(twoOptNewList, graph));
             return twoOptNewList;
         }
 
@@ -70,7 +71,7 @@ public class TSP {
             }
 
             Collections.shuffle(threeOptNewList);
-            threeOptNewList = ThreeOpt.threeOpt(christofidesList, graph);
+            threeOptNewList = ThreeOpt.threeOptAlgorithm(christofidesList, graph);
 
             // Print the optimized tour
             System.out.print("Three Opt : " + threeOptNewList);
@@ -83,7 +84,7 @@ public class TSP {
         }
 
         if (a == 3) {
-            int numIterations = 300;
+            int numIterations = 100;
             int numAnts = 23;
             double alpha = 3.0;
             double beta = 6.0;
