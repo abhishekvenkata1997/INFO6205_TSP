@@ -8,6 +8,7 @@ import java.lang.*;
 public class TSP {
 
     public double graph[][] = new ReadCoOrdinates().readGraphFromFile("teamproject.csv");
+
     public List<Integer> tsp(int a) {
 
         double totalDistance = 0.0;
@@ -25,6 +26,8 @@ public class TSP {
             initialList.add(initialSolution[i]);
         }
 
+        MST1 t = new MST1();
+        t.primMST(graph);
         System.out.println("Initial tour : " + initialList);
         // totalDistance = TourDistance.tourDistance(initialList, graph);
         totalDistance = TourDistance.tourDistance(initialList, graph);
