@@ -3,7 +3,6 @@ package com.tsp.TSP_Spring;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.*;
 
 public class Christofides {
     public static int[] applyChristofidesAlgorithm(double[][] graph, int[] initialSolution) {

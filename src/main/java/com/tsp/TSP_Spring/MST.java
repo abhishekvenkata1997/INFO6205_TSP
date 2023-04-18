@@ -1,8 +1,7 @@
 package com.tsp.TSP_Spring;
 
-import java.util.*;
 
-public class MST1 {
+public class MST {
     private static final int V = 585;
 
     public int minKey(double key[], boolean mstSet[]) {
@@ -18,7 +17,16 @@ public class MST1 {
         return min_index;
     }
 
-    public int[] primMST(double graph[][]) {
+    public void printMST(int parent[], double graph[][]){
+        double dist = 0.0;
+        for(int i = 1; i < V ; i++){
+            dist += graph[i][parent[i]];
+        }
+        System.out.println("MST Distance : " + (dist + graph[parent[parent.length - 1]][parent[1]]));
+
+    }
+
+    public void primMST(double graph[][]) {
         int parent[] = new int[V];
         double key[] = new double[V];
         boolean mstSet[] = new boolean[V];
@@ -41,7 +49,7 @@ public class MST1 {
                 }
             }
         }
-        return parent;
+        printMST(parent,graph);
     }
 
 }

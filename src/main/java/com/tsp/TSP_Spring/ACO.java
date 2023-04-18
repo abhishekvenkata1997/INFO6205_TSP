@@ -12,7 +12,6 @@ public class ACO {
     private double alpha; // pheromone importance factor
     private double beta; // heuristic information importance factor
     private double evaporation; // pheromone evaporation factor
-    private double initialPheromone; // initial pheromone value
     private int numAnts; // number of ants
     private int[] bestTour; // best tour found
     private double bestTourLength; // length of best tour
@@ -25,7 +24,6 @@ public class ACO {
         this.alpha = alpha;
         this.beta = beta;
         this.evaporation = evaporation;
-        this.initialPheromone = initialPheromone;
         this.numAnts = numAnts;
         this.random = new Random(seed);
 

@@ -5,12 +5,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 public class ReadCoOrdinates {
 
     private List<double[]> coordinates = new ArrayList<>();
+
+    private List<String> crimeIDs = new ArrayList<>();
+
+    public List<double[]> getCoOrdinates() {
+        return coordinates;
+    }
+
+    public List<String> getCrimeIDs() {
+        return crimeIDs;
+    }
 
     // read input from csv file
     public double[][] readGraphFromFile(String filename) {
@@ -24,9 +32,11 @@ public class ReadCoOrdinates {
                     continue;
                 }
                 String[] values = line.split(",");
+                String crimeID = values[0];
                 double longitude = Double.parseDouble(values[1].trim());
                 double latitude = Double.parseDouble(values[2].trim());
                 coordinates.add(new double[] { longitude, latitude });
+                crimeIDs.add(crimeID);
             }
         } catch (IOException e) {
             e.printStackTrace();
