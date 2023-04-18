@@ -51,7 +51,7 @@ public class TSP {
             return christofidesList;
         }
         if (a == 1) {
-            int[] newTour = TwoOpt.twoOpt(christofidesSolution, graph);
+            int[] newTour = TwoOpt.twoOpt(initialSolution, graph);
             List<Integer> twoOptNewList = new ArrayList<>();
 
             for (int i = 0; i < newTour.length; i++) {
@@ -116,7 +116,14 @@ public class TSP {
             System.out.println("Tour distance: " + solver.calculateTourDistance(bestTour));
             return bestTour;
         }
+
         return christofidesList;
+    }
+
+    public static double[][] getGraph() {
+
+        double[][] graph = ReadCoOrdinates.readGraphFromFile("teamproject.csv");
+        return graph;
     }
 
 }

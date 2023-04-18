@@ -2,6 +2,7 @@ package com.tsp.TSP_Spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ public class TspSpringApplication {
 	@RestController
 	public class MyController {
 
+		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/two-opt")
 		// Define the endpoint URL
 		public List<Integer> myApi() {
@@ -27,6 +29,14 @@ public class TspSpringApplication {
 			return outputData;
 		}
 
+		@CrossOrigin(origins = "http://localhost:3000")
+		@GetMapping("/distance")
+		public double[][] myApii() {
+			double[][] outputData = TSP.getGraph();
+			return outputData;
+		}
+
+		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/three-opt")
 		public List<Integer> myApi2() {
 
@@ -37,6 +47,7 @@ public class TspSpringApplication {
 			return outputData;
 		}
 
+		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/christofides")
 		public List<Integer> myApi3() {
 
@@ -47,6 +58,7 @@ public class TspSpringApplication {
 			return outputData;
 		}
 
+		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/aco")
 		public List<Integer> myApi4() {
 
@@ -57,6 +69,7 @@ public class TspSpringApplication {
 			return outputData;
 		}
 
+		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/sa")
 		public List<Integer> myApi5() {
 
