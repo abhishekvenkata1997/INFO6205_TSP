@@ -122,7 +122,17 @@ public class TSP {
             return bestTour;
         }
 
+        if (a == 5) {
+            MST1 mst = new MST1();
+            int[] arr = mst.primMST(graph);
+            List<Integer> mstlist = new ArrayList<>();
+            for (int i = 1; i < arr.length; i++) {
+                mstlist.add(arr[i]);
+            }
+            return mstlist;
+        }
         return christofidesList;
+
     }
 
     public double[][] getGraph() {

@@ -81,6 +81,18 @@ public class TspSpringApplication {
 			return outputData;
 		}
 
+		@CrossOrigin(origins = "http://localhost:3000")
+		@GetMapping("/mst")
+		public List<Integer> myApi6() {
+
+			// call sa method
+			List<Integer> outputData = new TSP().tsp(5);
+
+			// return data from simulated annealing
+
+			return outputData;
+		}
+
 	}
 
 }
