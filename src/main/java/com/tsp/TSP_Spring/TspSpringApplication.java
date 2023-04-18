@@ -23,7 +23,7 @@ public class TspSpringApplication {
 		// Define the endpoint URL
 		public List<Integer> myApi() {
 			// Call your method to get the output data
-			List<Integer> outputData = TSP.tsp(1);
+			List<Integer> outputData = new TSP().tsp(1);
 
 			// Return the output data as the response
 			return outputData;
@@ -32,7 +32,7 @@ public class TspSpringApplication {
 		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/distance")
 		public double[][] myApii() {
-			double[][] outputData = TSP.getGraph();
+			double[][] outputData = new TSP().getGraph();
 			return outputData;
 		}
 
@@ -41,7 +41,7 @@ public class TspSpringApplication {
 		public List<Integer> myApi2() {
 
 			// Call your three opt method
-			List<Integer> outputData = TSP.tsp(2);
+			List<Integer> outputData = new TSP().tsp(2);
 
 			// return data from three opt
 			return outputData;
@@ -52,7 +52,7 @@ public class TspSpringApplication {
 		public List<Integer> myApi3() {
 
 			// call christofides method
-			List<Integer> outputData = TSP.tsp(0);
+			List<Integer> outputData = new TSP().tsp(0);
 
 			// return data from christofides
 			return outputData;
@@ -63,7 +63,7 @@ public class TspSpringApplication {
 		public List<Integer> myApi4() {
 
 			// call aco method
-			List<Integer> outputData = TSP.tsp(3);
+			List<Integer> outputData = new TSP().tsp(3);
 
 			// return data from aco
 			return outputData;
@@ -74,7 +74,7 @@ public class TspSpringApplication {
 		public List<Integer> myApi5() {
 
 			// call sa method
-			List<Integer> outputData = TSP.tsp(4);
+			List<Integer> outputData = new TSP().tsp(4);
 
 			// return data from simulated annealing
 

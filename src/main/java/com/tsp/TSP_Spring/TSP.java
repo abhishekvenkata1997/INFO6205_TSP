@@ -6,13 +6,15 @@ import java.util.List;
 import java.lang.*;
 
 public class TSP {
-    public static List<Integer> tsp(int a) {
+
+    public double graph[][] = new ReadCoOrdinates().readGraphFromFile("teamproject.csv");
+    public List<Integer> tsp(int a) {
 
         double totalDistance = 0.0;
 
         // Step 1: Read or generate the input data
 
-        double[][] graph = ReadCoOrdinates.readGraphFromFile("teamproject.csv");
+        // double[][] graph = ReadCoOrdinates.readGraphFromFile("teamproject.csv");
         // GraphInfo graphInfo =
         // ReadCoOrdinates.readGraphInfoFromFile("teamproject.csv");
 
@@ -30,6 +32,8 @@ public class TSP {
         System.out.println("\nTotal initial distance: " + totalDistance);
         System.out.println();
 
+        System.out.println("Graph : " + graph.length);
+
         // Step 3: Apply the Christofides algorithm
         // int[] christofidesSolution =
         // Christofides.applyChristofidesAlgorithm(graph,initialSolution);
@@ -43,8 +47,6 @@ public class TSP {
         // totalDistance = TourDistance.tourDistance(christofidesList, graph);
         totalDistance = TourDistance.tourDistance(christofidesList, graph);
 
-        // CreateGraph.createChart(TourDistance.getCoords(christofidesList, graphInfo));
-        totalDistance = TourDistance.tourDistance(christofidesList, graph);
         System.out.println("\nTotal distance w Christofides: " + totalDistance);
 
         if (a == 0) {
@@ -120,9 +122,9 @@ public class TSP {
         return christofidesList;
     }
 
-    public static double[][] getGraph() {
+    public double[][] getGraph() {
 
-        double[][] graph = ReadCoOrdinates.readGraphFromFile("teamproject.csv");
+        double[][] graph = new ReadCoOrdinates().readGraphFromFile("teamproject.csv");
         return graph;
     }
 

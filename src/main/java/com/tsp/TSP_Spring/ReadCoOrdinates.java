@@ -10,10 +10,10 @@ import java.util.HashMap;
 
 public class ReadCoOrdinates {
 
-    private static List<double[]> coordinates = new ArrayList<>();
+    private List<double[]> coordinates = new ArrayList<>();
 
     // read input from csv file
-    static double[][] readGraphFromFile(String filename) {
+    public double[][] readGraphFromFile(String filename) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -44,7 +44,7 @@ public class ReadCoOrdinates {
             }
         }
         coordinates.forEach((double[] arr) -> {
-            System.out.println("{ lat: " + arr[1] + ", lng: " + arr[0] + " },");
+            // System.out.println("{ lat: " + arr[1] + ", lng: " + arr[0] + " },");
         });
         return graph;
     }
