@@ -1,11 +1,13 @@
 package com.tsp.TSP_Spring;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Stack;
 
 public class Christofides {
-    public static int[] applyChristofidesAlgorithm(double[][] graph, int[] initialSolution) {
+    public static int[] applyChristofidesAlgorithm(double[][] graph) {
         // Find the minimum spanning tree
         double[][] minimumSpanningTree = findMinimumSpanningTree(graph);
 
@@ -18,10 +20,19 @@ public class Christofides {
         // Combine the minimum spanning tree and the perfect matching
         double[][] combinedGraph = combineMinimumSpanningTreeAndPerfectMatching(minimumSpanningTree, perfectMatching);
 
-        // Improve the initial solution using the combined graph
-        int[] improvedSolution = improveSolutionWithCombinedGraph(combinedGraph, initialSolution);
+        // find Eulerian Tour of Combined Graph
+        List<Integer> eulerianTour = findEulerianTour(combinedGraph);
 
-        return improvedSolution;
+        // convert to hamiltonian cycle
+        int[] hamiltonianCycle = convertToHamiltonianCycle(eulerianTour);
+
+        // Improve the initial solution using the combined graph
+        // int[] improvedSolution = improveSolutionWithCombinedGraph(combinedGraph,
+        // hamiltonianCycle);
+        // initialSolution);
+
+        int[] improvedPath = improveHamiltonianPath(graph, hamiltonianCycle);
+        return improvedPath;
     }
 
     public static double[][] findMinimumSpanningTree(double[][] graph) {
@@ -166,6 +177,86 @@ public class Christofides {
         }
 
         return improvedSolution;
+    }
+
+    public static List<Integer> findEulerianTour(double[][] graph) {
+        int n = graph.length;
+        int startVertex = 0; // choose any starting vertex
+        List<Integer> tour = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(startVertex);
+
+        while (!stack.isEmpty()) {
+            int u = stack.peek();
+            boolean foundNeighbor = false;
+            for (int v = 0; v < n; v++) {
+                if (graph[u][v] > 0) {
+                    graph[u][v]--; // remove edge from graph
+                    graph[v][u]--; // remove edge from graph
+                    stack.push(v);
+                    foundNeighbor = true;
+                    break;
+                }
+            }
+            if (!foundNeighbor) {
+                stack.pop();
+                tour.add(u);
+            }
+        }
+
+        // Reverse the tour to get the correct order
+        Collections.reverse(tour);
+        return tour;
+    }
+
+    public static int[] convertToHamiltonianCycle(List<Integer> eulerianTour) {
+        int n = eulerianTour.size();
+        boolean[] visited = new boolean[n];
+        int[] hamiltonianCycle = new int[n];
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+            int vertex = eulerianTour.get(i);
+            if (!visited[vertex]) {
+                hamiltonianCycle[count++] = vertex;
+                visited[vertex] = true;
+            }
+        }
+
+        // Add the starting vertex to the end to complete the cycle
+        hamiltonianCycle[n - 1] = hamiltonianCycle[0];
+
+        // Create a new array with only the non-zero elements
+        int[] trimmedHamiltonianCycle = new int[count];
+        for (int i = 0; i < count; i++) {
+            trimmedHamiltonianCycle[i] = hamiltonianCycle[i];
+        }
+
+        return trimmedHamiltonianCycle;
+    }
+
+    public static int[] improveHamiltonianPath(double[][] graph, int[] path) {
+        int n = graph.length;
+        boolean[] visited = new boolean[n];
+        visited[path[0]] = true;
+
+        for (int i = 1; i < n; i++) {
+            int current = path[i - 1];
+            int next = -1;
+            double minDistance = Double.POSITIVE_INFINITY;
+
+            for (int j = 0; j < n; j++) {
+                if (!visited[j] && graph[current][j] < minDistance) {
+                    next = j;
+                    minDistance = graph[current][j];
+                }
+            }
+
+            path[i] = next;
+            visited[next] = true;
+        }
+
+        return path;
     }
 
 }

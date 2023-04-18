@@ -10,7 +10,7 @@ public class TSP {
 
     public double graph[][] = readCoOrdinates.readGraphFromFile("teamproject.csv");
 
-    //method for backend run only
+    // method for backend run only
     public void tspBackend() {
 
         List<double[]> coOrdinates = readCoOrdinates.getCoOrdinates();
@@ -40,7 +40,7 @@ public class TSP {
         System.out.println("Initial Tour Ended..");
 
         System.out.println("Christofides Tour Start");
-        int[] christofidesSolution = Christofides.applyChristofidesAlgorithm(graph, initialSolution);
+        int[] christofidesSolution = Christofides.applyChristofidesAlgorithm(graph);
         List<Integer> christofidesList = new ArrayList<>();
         for (int i = 0; i < christofidesSolution.length; i++) {
             christofidesList.add(christofidesSolution[i]);
@@ -51,7 +51,7 @@ public class TSP {
         }
 
         distance = TourDistance.tourDistance(christofidesList, graph);
-        System.out.println("\nTotal distance w Christofides: " + distance);
+        System.out.println("\nTotal distance w Christofides: " + distance * 1000);
         System.out.println("Christofides Tour Ended..");
 
         System.out.println("Two-Opt Tour Start..");
@@ -70,14 +70,14 @@ public class TSP {
         System.out.println("Three-opt Tour Start..");
         List<Integer> threeOptNewList = new ArrayList<>();
         threeOptNewList = ThreeOpt.threeOptAlgorithm(christofidesList, graph);
-        threeOptNewList.forEach( i -> {
+        threeOptNewList.forEach(i -> {
             System.out.print("Crime ID: " + crimeIDs.get(i));
             System.out.print(", Latitide: " + coOrdinates.get(i)[1]);
             System.out.print(", Longitude: " + coOrdinates.get(i)[0]);
             System.out.println();
         });
 
-        System.out.println("Three opt tour distance: " + TourDistance.tourDistance(threeOptNewList, graph));
+        System.out.println("Three opt tour distance: " + TourDistance.tourDistance(threeOptNewList, graph) * 1000);
         System.out.println("Three-opt Tour Ended..");
 
         System.out.println("Ant Colony Optimization Tour Start..");
@@ -100,7 +100,7 @@ public class TSP {
             System.out.println();
         }
 
-        System.out.println("Length of best tour ACO: " + TourDistance.tourDistance(ACONewList, graph));
+        System.out.println("Length of best tour ACO: " + TourDistance.tourDistance(ACONewList, graph) * 1000);
         System.out.println("Ant Colony Optimization Tour Ended..");
 
         System.out.println("Simulated Annealing Tour Start..");
@@ -108,49 +108,41 @@ public class TSP {
         List<Integer> initialTour = initialList;
         SimulatedAnnealing sa = new SimulatedAnnealing(graph, initialTour);
         List<Integer> bestTour = sa.solve(10000000, 1000000, 0.98);
-        bestTour.forEach( i -> {
+        bestTour.forEach(i -> {
             System.out.print("Crime ID: " + crimeIDs.get(i));
             System.out.print(", Latitide: " + coOrdinates.get(i)[1]);
             System.out.print(", Longitude: " + coOrdinates.get(i)[0]);
             System.out.println();
         });
-        System.out.println("Initial distance: " + sa.calculateTourDistance(initialList));
-        System.out.println("Tour distance: " + sa.calculateTourDistance(bestTour));
+        System.out.println("Initial distance: " + sa.calculateTourDistance(initialList) * 1000);
+        System.out.println("Tour distance: " + sa.calculateTourDistance(bestTour) * 1000);
         System.out.println("Simulated Annealing Tour Ended..");
     }
 
-    //method for ui api calls
+    // method for ui api calls
     public List<Integer> tsp(int a) {
 
-        //mst start
+        // mst start
         MST t = new MST();
         t.primMST(graph);
-        //mst end
+        // mst end
 
-        //initial start
-        int[] initialSolution = InitialTour.buildInitialSolution(graph);
-        List<Integer> initialList = new ArrayList<>();
-        for (int i = 0; i < initialSolution.length; i++) {
-            initialList.add(initialSolution[i]);
-        }
-        System.out.println("\nTotal initial distance: " + TourDistance.tourDistance(initialList, graph));
-        //initial end
-
-        //Christofides algorithm start
-        int[] christofidesSolution = Christofides.applyChristofidesAlgorithm(graph, initialSolution);
+        // Christofides algorithm start
+        int[] christofidesSolution = Christofides.applyChristofidesAlgorithm(graph);
         List<Integer> christofidesList = new ArrayList<>();
         for (int i = 0; i < christofidesSolution.length; i++) {
             christofidesList.add(christofidesSolution[i]);
         }
-        System.out.println("\nTotal distance w Christofides: " + TourDistance.tourDistance(christofidesList, graph));
-        //Christofides algorithm start
+        System.out.println(
+                "\nTotal distance w Christofides: " + TourDistance.tourDistance(christofidesList, graph) * 1000);
+        // Christofides algorithm start
 
         if (a == 0) {
             return christofidesList;
         }
-        //Two-opt 
+        // Two-opt
         if (a == 1) {
-            int[] newTour = TwoOpt.twoOpt(initialSolution, graph);
+            int[] newTour = TwoOpt.twoOpt(christofidesSolution, graph);
             List<Integer> twoOptNewList = new ArrayList<>();
 
             for (int i = 0; i < newTour.length; i++) {
@@ -159,14 +151,14 @@ public class TSP {
             System.out.print("2-opt distance=" + TourDistance.tourDistance(twoOptNewList, graph));
             return twoOptNewList;
         }
-        //three-opt
+        // three-opt
         if (a == 2) {
             List<Integer> threeOptNewList = new ArrayList<>();
             threeOptNewList = ThreeOpt.threeOptAlgorithm(christofidesList, graph);
             System.out.print("Three opt tour distance: " + TourDistance.tourDistance(threeOptNewList, graph));
             return threeOptNewList;
         }
-        //Ant Colony Optimization
+        // Ant Colony Optimization
         if (a == 3) {
             int numIterations = 100;
             int numAnts = 23;
@@ -186,13 +178,12 @@ public class TSP {
             return ACONewList;
 
         }
-        //Simulated Annelaing
+        // Simulated Annelaing
         if (a == 4) {
-            Collections.shuffle(initialList);
-            List<Integer> initialTour = initialList;
-            SimulatedAnnealing sa = new SimulatedAnnealing(graph, initialTour);
-            List<Integer> bestTour = sa.solve(10000000, 1000000, 0.98);
-            System.out.println("Initial distance: " + sa.calculateTourDistance(initialList));
+            Collections.shuffle(christofidesList);
+            SimulatedAnnealing sa = new SimulatedAnnealing(graph, christofidesList);
+            List<Integer> bestTour = sa.solve(10000000, 100000, 0.995);
+            System.out.println("Initial distance: " + sa.calculateTourDistance(christofidesList));
             System.out.println("Tour distance: " + sa.calculateTourDistance(bestTour));
             return bestTour;
         }

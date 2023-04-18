@@ -17,13 +17,12 @@ public class ChristofidesTest {
                 { 4, 3, 2, 1, 0 }
         };
         int[] tour = { 0, 1, 3, 4, 2 };
-        int[] expected = { 3, 1, 0, 4, 2 };
-        int[] actual = Christofides.applyChristofidesAlgorithm(distances, tour);
+        int[] expected = { 0, 1, 2, 3, 4 };
+
+        int[] actual = Christofides.applyChristofidesAlgorithm(distances);
         double actualDistance = TourDistance.calculateTourDistance(distances, actual);
-        for (int i = 0; i < actual.length; i++) {
-            System.out.print(actual[i] + " ");
-        }
-        assertEquals(10.0, actualDistance);
+
+        assertEquals(12.0, actualDistance);
         assertTrue(Arrays.equals(expected, actual));
     }
 
@@ -39,15 +38,12 @@ public class ChristofidesTest {
                 { 5, 4, 3, 2, 1, 0, 1 },
                 { 6, 5, 4, 3, 2, 1, 0 }
         };
-        int[] tour = { 3, 1, 2, 4, 0, 5, 6 };
-        int[] expected = { 4, 2, 1, 3, 0, 5, 6 };
-        int[] actual = Christofides.applyChristofidesAlgorithm(distances, tour);
+        int[] expected = { 0, 1, 2, 3, 4, 5, 6 };
+        int[] actual = Christofides.applyChristofidesAlgorithm(distances);
         double actualDistance = TourDistance.calculateTourDistance(distances, actual);
-        for (int i = 0; i < actual.length; i++) {
-            System.out.print(actual[i] + " ");
-        }
+
         assertTrue(Arrays.equals(expected, actual));
-        assertEquals(16.0, actualDistance);
+        assertEquals(12.0, actualDistance);
     }
 
     @Test
@@ -58,14 +54,10 @@ public class ChristofidesTest {
                 { 15, 35, 0, 30 },
                 { 20, 25, 30, 0 }
         };
-        int[] tour = { 1, 2, 3, 0 };
-        int[] expected = { 3, 2, 1, 0 };
-        int[] actual = Christofides.applyChristofidesAlgorithm(distances, tour);
+        int[] expected = { 0, 1, 3, 2 };
+        int[] actual = Christofides.applyChristofidesAlgorithm(distances);
         double actualDistance = TourDistance.calculateTourDistance(distances, actual);
-        for (int i = 0; i < actual.length; i++) {
-            System.out.print(actual[i] + " ");
-        }
         assertTrue(Arrays.equals(expected, actual));
-        assertEquals(95.0, actualDistance);
+        assertEquals(80.0, actualDistance);
     }
 }
