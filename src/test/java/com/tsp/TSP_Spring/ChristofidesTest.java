@@ -16,7 +16,6 @@ public class ChristofidesTest {
                 { 3, 2, 1, 0, 5 },
                 { 4, 3, 2, 1, 0 }
         };
-        int[] tour = { 0, 1, 3, 4, 2 };
         int[] expected = { 0, 1, 2, 3, 4 };
 
         int[] actual = Christofides.applyChristofidesAlgorithm(distances);

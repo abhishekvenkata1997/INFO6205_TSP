@@ -24,49 +24,7 @@ public class TourDistance {
         return distance;
     }
 
-    static double getActualTourDistance(List<Integer> tour, GraphInfo graphInfo) {
-
-        double distance = 0;
-        double[][] coordinates = new double[graphInfo.getNumVertices()][graphInfo.getNumVertices()];
-
-        // System.out.print("Getting inside actual tour");
-        for (int i = 0; i < tour.size() - 1; i++) {
-            // System.out.print("Getting inside actual tour");
-            double[] coord1 = graphInfo.getCoordinates().get(tour.get(i));
-            double[] coord2 = graphInfo.getCoordinates().get(tour.get(i + 1));
-            coordinates[i] = coord1;
-            if (coord1 != null && coord2 != null) {
-                distance = distance + getCoordDistance(coord1, coord2);
-            }
-            // System.out.print(Arrays.toString(coord1) + " " + Arrays.toString(coord2) + "
-            // " + distance + " ");
-        }
-        double[] coord1 = graphInfo.getCoordinates().get(tour.get(tour.size() - 1));
-        double[] coord2 = graphInfo.getCoordinates().get(tour.get(1));
-        distance = distance + getCoordDistance(coord1, coord2);
-        return distance;
-    }
-
-    static double[][] getCoords(List<Integer> list, GraphInfo graphInfo) {
-        double[][] coordinates = new double[list.size()][list.size()];
-
-        for (int i = 0; i < list.size(); i++) {
-            // System.out.print("Getting inside actual tour");
-            double[] coord = graphInfo.getCoordinates().get(list.get(i));
-            coordinates[i] = coord;
-        }
-        return coordinates;
-    }
-
-    static double getCoordDistance(double[] cord1, double[] cord2) {
-        // Calculate the difference in x and y coordinates
-        double diffX = cord1[0] - cord2[0];
-        double diffY = cord1[1] - cord2[1];
-
-        // Calculate the Euclidean distance between the two coordinates
-        double distance = Math.sqrt(diffX * diffX + diffY * diffY);
-        return distance;
-    }
+    
 
     public static final double RADIUS_OF_EARTH = 6371; // Earth's radius in kilometers
 

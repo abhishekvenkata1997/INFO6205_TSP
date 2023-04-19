@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TourMap from './TourMap';
 
 class Home extends Component {
     state = {
@@ -23,9 +22,9 @@ class Home extends Component {
                             <h3>Final Project</h3>
                             <h1 className="display-5">Travelling Salesman Problem</h1>
                             <div className="text-left display-6" style={{ "marginTop": "100px", "marginLeft": "550px" }}>
-                                <p>Sai Veerendra P</p>
-                                <p>Abhishek Venkata T</p>  
-                                <p>Shreya V</p>
+                                <p>Sai Veerendra Prathipati</p>
+                                <p>Abhishek Venkata Tiruchunapalli</p>  
+                                <p>Sreya Vallabhaneni</p>
                             </div>
                         </pre>
                         

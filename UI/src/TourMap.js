@@ -696,6 +696,7 @@ useEffect(() => {
   locationsList.map(x => {
     drawLocations(x)
     bounds.extend(x);
+    return null;
   });
   googleMap.fitBounds(bounds);
   if(load){

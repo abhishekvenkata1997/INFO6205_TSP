@@ -24,20 +24,7 @@ public class TSP {
         mst.primMST(graph);
         System.out.println("MST Tour Ended..");
 
-        System.out.println("Initial tour start");
-        int[] initialSolution = InitialTour.buildInitialSolution(graph);
-        List<Integer> initialList = new ArrayList<>();
-        for (int i = 0; i < initialSolution.length; i++) {
-            initialList.add(initialSolution[i]);
-            System.out.print("Crime ID: " + crimeIDs.get(i));
-            System.out.print(", Latitide: " + coOrdinates.get(i)[1]);
-            System.out.print(", Longitude: " + coOrdinates.get(i)[0]);
-            System.out.println();
-        }
 
-        distance = TourDistance.tourDistance(initialList, graph);
-        System.out.println("\nTotal initial tour distance: " + distance);
-        System.out.println("Initial Tour Ended..");
 
         System.out.println("Christofides Tour Start");
         int[] christofidesSolution = Christofides.applyChristofidesAlgorithm(graph);
@@ -55,7 +42,7 @@ public class TSP {
         System.out.println("Christofides Tour Ended..");
 
         System.out.println("Two-Opt Tour Start..");
-        int[] newTour = TwoOpt.twoOpt(initialSolution, graph);
+        int[] newTour = TwoOpt.twoOpt(christofidesSolution, graph);
         List<Integer> twoOptNewList = new ArrayList<>();
         for (int i = 0; i < newTour.length; i++) {
             twoOptNewList.add(newTour[i]);
@@ -104,9 +91,8 @@ public class TSP {
         System.out.println("Ant Colony Optimization Tour Ended..");
 
         System.out.println("Simulated Annealing Tour Start..");
-        Collections.shuffle(initialList);
-        List<Integer> initialTour = initialList;
-        SimulatedAnnealing sa = new SimulatedAnnealing(graph, initialTour);
+        Collections.shuffle(christofidesList);
+        SimulatedAnnealing sa = new SimulatedAnnealing(graph, christofidesList);
         List<Integer> bestTour = sa.solve(10000000, 1000000, 0.98);
         bestTour.forEach(i -> {
             System.out.print("Crime ID: " + crimeIDs.get(i));
@@ -114,7 +100,7 @@ public class TSP {
             System.out.print(", Longitude: " + coOrdinates.get(i)[0]);
             System.out.println();
         });
-        System.out.println("Initial distance: " + sa.calculateTourDistance(initialList) * 1000);
+        System.out.println("Initial distance: " + sa.calculateTourDistance(christofidesList) * 1000);
         System.out.println("Tour distance: " + sa.calculateTourDistance(bestTour) * 1000);
         System.out.println("Simulated Annealing Tour Ended..");
     }
