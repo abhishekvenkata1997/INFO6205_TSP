@@ -4,7 +4,7 @@ import TourMap from './TourMap';
 import Home from './Home';
 
 // API key of the google map
-const GOOGLE_MAP_API_KEY = 'AIzaSyAlpa0Cy26gTkroY7rw8NJJhiSwD-aZMzA';
+const GOOGLE_MAP_API_KEY = '';
 
 // load google map script
 const loadGoogleMapScript = (callback) => {
